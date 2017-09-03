@@ -1,7 +1,6 @@
 package com.luogh.network.rpc.common;
 
 import com.google.common.base.Preconditions;
-import com.google.common.base.Throwables;
 import com.google.common.collect.Maps;
 import com.luogh.network.rpc.TransportContext;
 import com.luogh.network.rpc.client.TransportClient;
@@ -12,11 +11,9 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.imageio.IIOException;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -68,7 +65,7 @@ public class TransportClientFactoryImpl implements TransportClientFactory {
         this.workerGroup = NettyUtil.createEventLoop(ioMode,
                 conf.clientThreads(),
                 conf.getModuleName() + "-client");
-        this.allocator = NettyUtil.createPooledByteBufAllocator(conf.preferDirectBufs(), false,
+        this.allocator = NettyUtil.createPooledByteBufAllocator(conf.preferDirectBuf(), false,
                 conf.clientThreads());
     }
 

@@ -26,7 +26,7 @@ public class MessageWithHeader extends AbstractReferenceCounted implements FileR
     private final Object bodyObj;
     private final long bodyLength;
     private final int headerLength;
-    private long alreadyTransformedBytes;
+    private volatile long alreadyTransformedBytes;
 
     /**
      * When the write buffer size is larger than this limit, I/O will be done in chunks of this size.
@@ -116,7 +116,7 @@ public class MessageWithHeader extends AbstractReferenceCounted implements FileR
         int written = buffer.remaining() <= NIO_BUFFER_LIMIT ?
                 target.write(buffer) : writeNioBuffer(target, buffer);
         byteBuf.skipBytes(written);
-        return 0;
+        return written;
     }
 
     private int writeNioBuffer(WritableByteChannel target, ByteBuffer buffer) {

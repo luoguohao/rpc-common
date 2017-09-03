@@ -2,6 +2,7 @@ package com.luogh.network.rpc.util;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.luogh.network.rpc.common.IOMode;
+import com.luogh.network.rpc.common.TransportFrameDecoder;
 import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
@@ -94,5 +95,9 @@ public class NettyUtil {
             default:
                 throw new IllegalArgumentException("Invalid ioMode=" + ioMode);
         }
+    }
+
+    public static TransportFrameDecoder createFrameDecoder() {
+        return new TransportFrameDecoder();
     }
 }

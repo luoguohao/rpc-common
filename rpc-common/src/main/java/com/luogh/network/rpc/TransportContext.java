@@ -8,6 +8,7 @@ import com.luogh.network.rpc.common.*;
 import com.luogh.network.rpc.server.TransportRequestHandler;
 import com.luogh.network.rpc.server.TransportServer;
 import com.luogh.network.rpc.server.TransportServerBootstrap;
+import com.luogh.network.rpc.util.NettyUtil;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.Getter;
@@ -78,7 +79,7 @@ public class TransportContext {
             TransportChannelHandler channelHandler = createTransportChannelHandler(channel, rpcHandler);
             channel.pipeline()
                     .addLast("encoder", messageEncoder)
-                    .addLast("frameDecoder", new TransportFrameDecoder())
+                    .addLast("frameDecoder", NettyUtil.createFrameDecoder())
                     .addLast("decoder", messageDecoder)
                     .addLast("idleStateHandler", new IdleStateHandler(
                             0, 0,
