@@ -66,7 +66,7 @@ public class NettyUtil {
 
     private static int getPrivateStaticField(String staticFiled) {
         try {
-            Field field = PooledByteBufAllocator.DEFAULT.getClass().getField(staticFiled);
+            Field field = PooledByteBufAllocator.DEFAULT.getClass().getDeclaredField(staticFiled);
             field.setAccessible(true);
             return field.getInt(null);
         } catch (Exception e) {

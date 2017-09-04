@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
@@ -277,6 +279,14 @@ public class Util {
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
             return bytes;
+        }
+    }
+
+    public static String getLocalHost() {
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

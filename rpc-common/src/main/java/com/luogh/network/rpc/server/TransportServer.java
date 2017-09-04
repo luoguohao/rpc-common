@@ -93,7 +93,7 @@ public class TransportServer implements Closeable {
         channelFuture = bootstrap.bind(address);
         channelFuture.syncUninterruptibly();
 
-        port = ((InetSocketAddress)(channelFuture.channel().localAddress())).getPort();
+        this.port = ((InetSocketAddress)(channelFuture.channel().localAddress())).getPort();
         log.debug("server started at port:" + port);
     }
 

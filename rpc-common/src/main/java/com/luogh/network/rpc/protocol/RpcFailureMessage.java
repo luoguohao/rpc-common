@@ -5,11 +5,13 @@ import com.luogh.network.rpc.util.Encoders;
 import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 
+import java.util.Objects;
+
 /**
  * @author luogh
  */
 @Getter
-public class RpcFailureMessage extends AbstractMessage implements ResponseMessage {
+public final class RpcFailureMessage extends AbstractMessage implements ResponseMessage {
 
     private final long requestId;
     private final String error;
@@ -53,5 +55,22 @@ public class RpcFailureMessage extends AbstractMessage implements ResponseMessag
     @Override
     public ResponseMessage createFailureMessage(String error) {
         return new RpcFailureMessage(requestId, error);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RpcFailureMessage that = (RpcFailureMessage) o;
+
+        if (requestId != that.requestId) return false;
+        if (error != null ? !error.equals(that.error) : that.error != null) return false;
+        return super.equals(that);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestId, error);
     }
 }

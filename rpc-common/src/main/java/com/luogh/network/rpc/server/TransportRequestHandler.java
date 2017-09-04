@@ -36,6 +36,18 @@ public class TransportRequestHandler implements TransportMessageHandler<RequestM
     public void handle(RequestMessage message) throws Exception {
         if (message instanceof RpcRequestMessage) {
             processRpcRequest((RpcRequestMessage)message);
+        } else if (message instanceof OneWayMessage) {
+            processOneWayMessage((OneWayMessage)message);
+        }
+    }
+
+    private void processOneWayMessage(OneWayMessage message) {
+        try {
+            rpcHandler.receive(client, message.body().nioByteBuffer());
+        } catch (Exception e) {
+            log.error("Error while invoking RpcHandler#processOneWayMessage On RPC", e);
+        } finally {
+            message.body().release();
         }
     }
 
@@ -58,7 +70,6 @@ public class TransportRequestHandler implements TransportMessageHandler<RequestM
         } finally {
             message.body().release();
         }
-
     }
 
     private void response(Encodeable message) {

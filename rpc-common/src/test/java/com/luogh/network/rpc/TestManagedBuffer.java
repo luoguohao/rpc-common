@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import com.luogh.network.rpc.buffer.ManagedBuffer;
 import com.luogh.network.rpc.buffer.NettyManagedBuffer;
 import io.netty.buffer.Unpooled;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +13,7 @@ import java.nio.ByteBuffer;
 /**
  * @author luogh
  */
+@Slf4j
 public class TestManagedBuffer implements ManagedBuffer {
 
     private final int len;
@@ -63,10 +65,12 @@ public class TestManagedBuffer implements ManagedBuffer {
             try {
                 ByteBuffer nioBuf = ((ManagedBuffer) o).nioByteBuffer();
                 if (nioBuf.remaining() != len) {
+                    log.error("nioBuffer remaining {} != length {} ", nioBuf.remaining(), len);
                     return false;
                 } else {
                     for (int i = 0; i < len; i++) {
                         if (nioBuf.get(i) != i) {
+                            log.error("nio buf.get({}) != {}", i, i);
                             return false;
                         }
                     }
@@ -76,6 +80,7 @@ public class TestManagedBuffer implements ManagedBuffer {
                 throw new RuntimeException(e);
             }
         }
+        log.error("not a managedBuffer.");
         return false;
     }
 
