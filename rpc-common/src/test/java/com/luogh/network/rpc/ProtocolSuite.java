@@ -32,8 +32,8 @@ public class ProtocolSuite {
         EmbeddedChannel serverChannel = new EmbeddedChannel(NettyUtil.createFrameDecoder(), new MessageDecoder());
 
         while (!clientChannel.outboundMessages().isEmpty()) {
-            Object obj = clientChannel.readOutbound();
-            serverChannel.writeInbound(obj);
+            Object object = clientChannel.readOutbound();
+            serverChannel.writeInbound(object);
         }
 
         assertEquals(1, serverChannel.inboundMessages().size());
@@ -43,18 +43,18 @@ public class ProtocolSuite {
     @Test
     public void requests() {
         testClientToServer(new RpcRequestMessage(new TestManagedBuffer(10), 12345));
+        testClientToServer(new RpcRequestMessage(new TestManagedBuffer(0), 12345));
     }
 
     private static class FileRegionEncoder extends MessageToMessageEncoder<FileRegion> {
         @Override
         protected void encode(ChannelHandlerContext ctx, FileRegion msg, List<Object> out) throws Exception {
             ByteArrayWritableChannel channel = new ByteArrayWritableChannel(Ints.checkedCast(msg.count()));
+            byte[] buf = channel.getData();
+            log.debug("buffer size:{}.", buf.length);
             while (msg.transferred() < msg.count()) {
-                log.debug("transferred bytes={}.", msg.transferred());
                 msg.transferTo(channel, msg.transferred());
             }
-            byte[] buf = channel.getData();
-            log.debug("buffer size:{}, transferred length:{}.", buf.length, msg.transferred());
             out.add(Unpooled.wrappedBuffer(buf));
         }
     }

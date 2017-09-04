@@ -56,4 +56,31 @@ public class TestManagedBuffer implements ManagedBuffer {
     public Object convertToNetty() throws IOException {
         return underlying.convertToNetty();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ManagedBuffer) {
+            try {
+                ByteBuffer nioBuf = ((ManagedBuffer) o).nioByteBuffer();
+                if (nioBuf.remaining() != len) {
+                    return false;
+                } else {
+                    for (int i = 0; i < len; i++) {
+                        if (nioBuf.get(i) != i) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+      return underlying.hashCode();
+    }
 }

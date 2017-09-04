@@ -49,4 +49,6 @@ public class NettyManagedBuffer implements ManagedBuffer {
     public Object convertToNetty() throws IOException {
         return buf.duplicate().retain();
     }
+
+
 }
