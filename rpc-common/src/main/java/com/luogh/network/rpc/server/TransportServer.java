@@ -94,7 +94,7 @@ public class TransportServer implements Closeable {
         channelFuture.syncUninterruptibly();
 
         this.port = ((InetSocketAddress)(channelFuture.channel().localAddress())).getPort();
-        log.debug("server started at port:" + port);
+        log.debug("server started at port:" + this.port);
     }
 
     @Override
