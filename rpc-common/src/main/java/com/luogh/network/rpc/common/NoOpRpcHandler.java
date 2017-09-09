@@ -23,7 +23,7 @@ public class NoOpRpcHandler extends RpcHandler {
     }
 
     @Override
-    public StreamManager StreamManager() {
+    public StreamManager streamManager() {
         return streamManager;
     }
 }

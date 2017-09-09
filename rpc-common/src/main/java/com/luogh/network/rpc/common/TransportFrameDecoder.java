@@ -6,6 +6,8 @@ import io.netty.buffer.CompositeByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedList;
 
@@ -17,6 +19,7 @@ public class TransportFrameDecoder extends ChannelInboundHandlerAdapter {
     private static final int FRAME_LENGTH_SIZE = 8;
     private static final int MAX_FRAME_LENGTH_SIZE = Integer.MAX_VALUE;
     private static final int UNKNOWN_FRAME_LENGTH_SIZE = -1;
+    public static final String HANDLER_NAME = "frameDecoder";
 
     private final LinkedList<ByteBuf> buffers = new LinkedList<>();
     private final ByteBuf frameLenBuf = Unpooled.buffer(FRAME_LENGTH_SIZE, FRAME_LENGTH_SIZE);
@@ -24,6 +27,12 @@ public class TransportFrameDecoder extends ChannelInboundHandlerAdapter {
     private long totalSize = 0;
     private long nextFrameSize = UNKNOWN_FRAME_LENGTH_SIZE;
     private volatile Interceptor interceptor;
+
+    public void setInterceptor(Interceptor interceptor) {
+        Preconditions.checkState(this.interceptor == null, "Already have a interceptor.");
+        this.interceptor = interceptor;
+    }
+
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

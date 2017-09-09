@@ -17,7 +17,7 @@ public abstract class RpcHandler {
 
     public abstract void receive(TransportClient client, ByteBuffer message, RpcResponseCallback callback);
 
-    public abstract StreamManager StreamManager();
+    public abstract StreamManager streamManager();
 
     public void receive(TransportClient client, ByteBuffer message) {
         receive(client, message, ONE_WAY_CALLBACK);

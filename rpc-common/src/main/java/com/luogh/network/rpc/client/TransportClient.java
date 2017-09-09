@@ -75,7 +75,7 @@ public class TransportClient implements Closeable {
     }
 
 
-    public void fetchChunk(String streamId, int chunkIndex, final ChunkReceivedCallBack callBack) {
+    public void fetchChunk(long streamId, int chunkIndex, final ChunkReceivedCallback callBack) {
         final long startTime = System.currentTimeMillis();
         log.trace("Sending fetchChunk request streamId {} chunkIndex {} to {}.", streamId, chunkIndex,
                 getRemoteHost(channel));

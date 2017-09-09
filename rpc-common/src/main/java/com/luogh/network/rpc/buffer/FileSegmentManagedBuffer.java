@@ -39,8 +39,8 @@ public class FileSegmentManagedBuffer implements ManagedBuffer {
                 channel.position(offset);
                 while (buf.remaining() != 0) {
                     if (channel.read(buf) == -1) {
-                        throw new IOException(String.format("Reached EOF before filling buffer.\n"
-                        + "offset=%s\nfile=%s\nbuffer.remaining=%s", offset, file, buf.remaining()));
+                        throw new IOException(String.format("Reached EOF before filling buffer. %n"
+                        + "offset=%s %n file=%s %n buffer.remaining=%s", offset, file, buf.remaining()));
                     }
                 }
                 buf.flip();

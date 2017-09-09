@@ -2,6 +2,7 @@ package com.luogh.network.rpc.protocol;
 
 import com.luogh.network.rpc.util.Encoders;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
 
 import java.nio.ByteBuffer;
 
@@ -10,10 +11,10 @@ import java.nio.ByteBuffer;
  */
 public class ChunkFetchRequestMessage extends AbstractMessage implements RequestMessage {
 
-    private final String streamId;
-    private final int chunkIndex;
+    @Getter private final long streamId;
+    @Getter private final int chunkIndex;
 
-    public ChunkFetchRequestMessage(String streamId, int chunkIndex) {
+    public ChunkFetchRequestMessage(long streamId, int chunkIndex) {
         this.streamId = streamId;
         this.chunkIndex = chunkIndex;
     }
@@ -25,18 +26,18 @@ public class ChunkFetchRequestMessage extends AbstractMessage implements Request
 
     @Override
     public int encodeLength() {
-        return Encoders.Strings.encodeLength(streamId) + 4;
+        return 8 + 4;
     }
 
     @Override
     public void encode(ByteBuf bytebuf) {
         bytebuf.writeInt(chunkIndex);
-        Encoders.Strings.encode(bytebuf, streamId);
+        bytebuf.writeLong(streamId);
     }
 
     public static ChunkFetchRequestMessage decode(ByteBuf byteBuffer) {
         int chunkIndex = byteBuffer.readInt();
-        String streamId = Encoders.Strings.decode(byteBuffer);
+        long streamId = byteBuffer.readLong();
         return new ChunkFetchRequestMessage(streamId, chunkIndex);
     }
 }

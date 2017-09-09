@@ -4,14 +4,15 @@ import com.luogh.network.rpc.buffer.ManagedBuffer;
 import com.luogh.network.rpc.buffer.NettyManagedBuffer;
 import com.luogh.network.rpc.util.Encoders;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
 
 /**
  * @author luogh
  */
 public class StreamResponse extends AbstractMessage implements ResponseMessage {
 
-    private final String streamId;
-    private final long byteCount;
+    @Getter private final String streamId;
+    @Getter private final long byteCount;
 
     public StreamResponse(String streamId, long byteCount, ManagedBuffer body) {
         super(false, body);

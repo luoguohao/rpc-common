@@ -79,7 +79,7 @@ public class TransportContext {
             TransportChannelHandler channelHandler = createTransportChannelHandler(channel, rpcHandler);
             channel.pipeline()
                     .addLast("encoder", messageEncoder)
-                    .addLast("frameDecoder", NettyUtil.createFrameDecoder())
+                    .addLast(TransportFrameDecoder.HANDLER_NAME, NettyUtil.createFrameDecoder())
                     .addLast("decoder", messageDecoder)
                     .addLast("idleStateHandler", new IdleStateHandler(
                             0, 0,

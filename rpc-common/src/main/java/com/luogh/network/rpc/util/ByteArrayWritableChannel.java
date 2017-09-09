@@ -16,6 +16,7 @@ public class ByteArrayWritableChannel implements WritableByteChannel {
         this.data = new byte[size];
     }
 
+
     public byte[] getData() {
         return this.data;
     }

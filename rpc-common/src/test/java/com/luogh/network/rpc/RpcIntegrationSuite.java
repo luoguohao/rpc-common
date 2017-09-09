@@ -52,7 +52,7 @@ public class RpcIntegrationSuite {
             }
 
             @Override
-            public StreamManager StreamManager() {
+            public StreamManager streamManager() {
                 return null;
             }
 

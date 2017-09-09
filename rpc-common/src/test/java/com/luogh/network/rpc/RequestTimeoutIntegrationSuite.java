@@ -1,9 +1,8 @@
 package com.luogh.network.rpc;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.luogh.network.rpc.buffer.ManagedBuffer;
-import com.luogh.network.rpc.client.ChunkReceivedCallBack;
+import com.luogh.network.rpc.client.ChunkReceivedCallback;
 import com.luogh.network.rpc.client.RpcResponseCallback;
 import com.luogh.network.rpc.client.TransportClient;
 import com.luogh.network.rpc.common.*;
@@ -53,7 +52,7 @@ public class RequestTimeoutIntegrationSuite {
             }
 
             @Override
-            public StreamManager StreamManager() {
+            public StreamManager streamManager() {
                 return null;
             }
         };
@@ -102,7 +101,7 @@ public class RequestTimeoutIntegrationSuite {
             }
 
             @Override
-            public StreamManager StreamManager() {
+            public StreamManager streamManager() {
                 return null;
             }
         };
@@ -148,7 +147,7 @@ public class RequestTimeoutIntegrationSuite {
         }
     }
 
-    static class TestCallback implements RpcResponseCallback, ChunkReceivedCallBack {
+    static class TestCallback implements RpcResponseCallback, ChunkReceivedCallback {
 
         int successLength = -1;
         Throwable failure;

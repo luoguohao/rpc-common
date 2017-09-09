@@ -2,14 +2,15 @@ package com.luogh.network.rpc.protocol;
 
 import com.luogh.network.rpc.util.Encoders;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
 
 /**
  * @author luogh
  */
 public class StreamFailure extends AbstractMessage implements ResponseMessage {
 
-    private final String streamId;
-    private final String error;
+    @Getter private final String streamId;
+    @Getter private final String error;
 
     public StreamFailure(String streamId, String error) {
         this.streamId = streamId;

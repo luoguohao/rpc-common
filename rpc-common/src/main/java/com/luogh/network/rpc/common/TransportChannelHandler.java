@@ -27,7 +27,8 @@ public class TransportChannelHandler extends SimpleChannelInboundHandler<Message
     private final boolean closeIdleConnections;
 
 
-    public TransportChannelHandler(TransportRequestHandler requestHandler, TransportResponseHandler responseHandler, int connectionTimeoutInMs, boolean closeIdleConnection) {
+    public TransportChannelHandler(TransportRequestHandler requestHandler, TransportResponseHandler responseHandler,
+                                   int connectionTimeoutInMs, boolean closeIdleConnection) {
         this.client = requestHandler.getClient();
         this.requestHandler = requestHandler;
         this.responseHandler = responseHandler;

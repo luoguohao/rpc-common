@@ -5,7 +5,7 @@ import com.luogh.network.rpc.buffer.ManagedBuffer;
 import java.io.IOException; /**
  * @author luogh
  */
-public interface ChunkReceivedCallBack {
+public interface ChunkReceivedCallback {
 
     void onSuccess(int chunkIndex, ManagedBuffer buffer);
 

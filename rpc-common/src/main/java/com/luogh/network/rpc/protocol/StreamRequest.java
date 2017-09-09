@@ -2,13 +2,14 @@ package com.luogh.network.rpc.protocol;
 
 import com.luogh.network.rpc.util.Encoders;
 import io.netty.buffer.ByteBuf;
+import lombok.Getter;
 
 /**
  * @author luogh
  */
 public class StreamRequest extends AbstractMessage implements RequestMessage {
 
-    private final String streamId;
+    @Getter private final String streamId;
 
     public StreamRequest(String streamId) {
         this.streamId = streamId;
